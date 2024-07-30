@@ -11,7 +11,9 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/upload", upload.single("file"), (req, res) => {
-  res.send("File uploaded succesfully");
+  res.send(
+    `File uploaded to: <a href="/uploads/${req.file.filename}">${req.file.filename}</a>`
+  );
 });
 
 const PORT = 3000;

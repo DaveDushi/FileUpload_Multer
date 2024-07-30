@@ -99,18 +99,62 @@ app.listen(port, () => {
 
   ```js
   app.post("/upload", upload.single("file"), (req, res) => {
-    res.send("File uploaded succesfully");
+    res.send(
+      `File uploaded to: <a href="/uploads/${req.file.filename}">${req.file.filename}</a>`
+    );
   });
   ```
 
 - In the public folder create a file called 'index.html'
 
   - create a form to upload files
+
     ```html
-    <form action="/upload" method="post" enctype="multipart/form-data">
-      <input type="file" name="file" />
-      <input type="submit" value="Upload File" />
-    </form>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>File Upload Form</title>
+        <link
+          href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
+        <div class="min-h-screen flex items-center justify-center bg-gray-100">
+          <form
+            action="/upload"
+            method="post"
+            enctype="multipart/form-data"
+            class="bg-white p-6 rounded-lg shadow-md w-full max-w-sm"
+          >
+            <h2 class="text-2xl font-bold mb-4 text-gray-700">Upload File</h2>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="file"
+              >
+                Select file
+              </label>
+              <input
+                type="file"
+                name="file"
+                id="file"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <input
+                type="submit"
+                value="Upload File"
+                class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 cursor-pointer"
+              />
+            </div>
+          </form>
+        </div>
+      </body>
+    </html>
     ```
 
 - Lastly in the 'public' directory create another directory called 'uploads'
